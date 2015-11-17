@@ -1,0 +1,374 @@
+<?xml version="1.0" encoding="utf-8"?>
+<TableLayout
+	xmlns:android="http://schemas.android.com/apk/res/android"
+	android:layout_width="match_parent"
+	android:layout_height="match_parent">
+
+	<TableRow
+		android:layout_height="wrap_content"
+		android:layout_width="match_parent">
+
+		<TextView
+			android:id="@+id/tvTexStatus"
+			android:layout_height="wrap_content"
+			android:layout_width="0dp"
+			android:layout_weight="1.0"
+			android:text="Status"/>
+
+		<TextView
+			android:id="@+id/tvSimStatus"
+			android:layout_height="wrap_content"
+			android:layout_width="0dp"
+			android:layout_weight="1.0"
+			android:text="0"/>
+
+		<TextView
+			android:id="@+id/tvTexLineLength"
+			android:layout_height="wrap_content"
+			android:layout_width="0dp"
+			android:layout_weight="1.0"
+			android:text="LineLen"/>
+
+		<TextView
+			android:id="@+id/tvSimLineLength"
+			android:layout_height="wrap_content"
+			android:layout_width="0dp"
+			android:layout_weight="1.0"
+			android:text="0"/>
+
+		<TextView
+			android:id="@+id/tvTexLineTension"
+			android:layout_height="wrap_content"
+			android:layout_width="0dp"
+			android:layout_weight="1.0"
+			android:text="LineTen"/>
+
+		<TextView
+			android:id="@+id/tvSimLineTension"
+			android:layout_height="wrap_content"
+			android:layout_width="0dp"
+			android:layout_weight="1.0"
+			android:text="0"/>
+
+	</TableRow>
+
+	<TableRow
+		android:layout_height="wrap_content"
+		android:layout_width="match_parent">
+
+		<TextView
+			android:id="@+id/tvTxtCastPower"
+			android:layout_height="wrap_content"
+			android:layout_width="0dp"
+			android:layout_weight="1.0"
+			android:text="CastPw"/>
+
+		<TextView
+			android:id="@+id/tvSimCastPower"
+			android:layout_height="wrap_content"
+			android:layout_width="0dp"
+			android:layout_weight="1.0"
+			android:text="0"/>
+
+		<TextView
+			android:id="@+id/tvTxtSlackLength"
+			android:layout_height="wrap_content"
+			android:layout_width="0dp"
+			android:layout_weight="1.0"
+			android:text="SlackLen"/>
+
+		<TextView
+			android:id="@+id/tvSimSlackLength"
+			android:layout_height="wrap_content"
+			android:layout_width="0dp"
+			android:layout_weight="1.0"
+			android:text="0"/>
+
+		<TextView
+			android:id="@+id/tvTxtEgiVx"
+			android:layout_height="wrap_content"
+			android:layout_width="0dp"
+			android:layout_weight="1.0"
+			android:text="EgiVx"/>
+
+		<TextView
+			android:id="@+id/tvSimEgiVx"
+			android:layout_height="wrap_content"
+			android:layout_width="0dp"
+			android:layout_weight="1.0"
+			android:text="0"/>
+
+	</TableRow>
+
+	<TableRow
+		android:layout_height="wrap_content"
+		android:layout_width="match_parent">
+
+		<TextView
+			android:id="@+id/tvTxtRodAngle"
+			android:layout_height="wrap_content"
+			android:layout_width="0dp"
+			android:layout_weight="1.0"
+			android:text="RodAgl"/>
+
+		<TextView
+			android:id="@+id/tvSimRodAngle"
+			android:layout_height="wrap_content"
+			android:layout_width="0dp"
+			android:layout_weight="1.0"
+			android:text="0"/>
+
+		<TextView
+			android:id="@+id/tvTxtGyroV"
+			android:layout_height="wrap_content"
+			android:layout_width="0dp"
+			android:layout_weight="1.0"
+			android:text="GyroV"/>
+
+		<TextView
+			android:id="@+id/tvSimGyroV"
+			android:layout_height="wrap_content"
+			android:layout_width="0dp"
+			android:layout_weight="1.0"
+			android:text="0"/>
+
+		<TextView
+			android:id="@+id/tvTxtEgiVy"
+			android:layout_height="wrap_content"
+			android:layout_width="0dp"
+			android:layout_weight="1.0"
+			android:text="EgiVy"/>
+
+		<TextView
+			android:id="@+id/tvSimEgiVy"
+			android:layout_height="wrap_content"
+			android:layout_width="0dp"
+			android:layout_weight="1.0"
+			android:text="0"/>
+
+	</TableRow>
+
+	<TableRow
+		android:layout_height="wrap_content"
+		android:layout_width="match_parent">
+
+		<TextView
+			android:id="@+id/tvTxtEgiX"
+			android:layout_height="wrap_content"
+			android:layout_width="0dp"
+			android:layout_weight="1.0"
+			android:text="EgiX"/>
+
+		<TextView
+			android:id="@+id/tvSimEgiX"
+			android:layout_height="wrap_content"
+			android:layout_width="0dp"
+			android:layout_weight="1.0"
+			android:text="0"/>
+
+		<TextView
+			android:id="@+id/tvTxtEgiY"
+			android:layout_height="wrap_content"
+			android:layout_width="0dp"
+			android:layout_weight="1.0"
+			android:text="EgiY"/>
+
+		<TextView
+			android:id="@+id/tvSimEgiY"
+			android:layout_height="wrap_content"
+			android:layout_width="0dp"
+			android:layout_weight="1.0"
+			android:text="0"/>
+
+		<TextView
+			android:id="@+id/tvTxtReelV"
+			android:layout_height="wrap_content"
+			android:layout_width="0dp"
+			android:layout_weight="1.0"
+			android:text="ReelV"/>
+
+		<TextView
+			android:id="@+id/tvSimReelV"
+			android:layout_height="wrap_content"
+			android:layout_width="0dp"
+			android:layout_weight="1.0"
+			android:text="0"/>
+
+	</TableRow>
+
+	<TableRow
+		android:layout_height="wrap_content"
+		android:layout_width="match_parent">
+
+		<TextView
+			android:id="@+id/tvTxtEgiAngle"
+			android:layout_height="wrap_content"
+			android:layout_width="0dp"
+			android:layout_weight="1.0"
+			android:text="EgiAgl"/>
+
+		<TextView
+			android:id="@+id/tvSimEgiAngle"
+			android:layout_height="wrap_content"
+			android:layout_width="0dp"
+			android:layout_weight="1.0"
+			android:text="0"/>
+
+		<TextView
+			android:id="@+id/tvTxtEgiAx"
+			android:layout_height="wrap_content"
+			android:layout_width="0dp"
+			android:layout_weight="1.0"
+			android:text="EgiAx"/>
+
+		<TextView
+			android:id="@+id/tvSimEgiAx"
+			android:layout_height="wrap_content"
+			android:layout_width="0dp"
+			android:layout_weight="1.0"
+			android:text="0"/>
+
+		<TextView
+			android:id="@+id/tvTxtEgiAy"
+			android:layout_height="wrap_content"
+			android:layout_width="0dp"
+			android:layout_weight="1.0"
+			android:text="EgiAy"/>
+
+		<TextView
+			android:id="@+id/tvSimEgiAy"
+			android:layout_height="wrap_content"
+			android:layout_width="0dp"
+			android:layout_weight="1.0"
+			android:text="0"/>
+
+	</TableRow>
+
+	<TableRow
+		android:layout_height="wrap_content"
+		android:layout_width="match_parent">
+
+		<TextView
+			android:id="@+id/tvTexEncount"
+			android:layout_height="wrap_content"
+			android:layout_width="0dp"
+			android:layout_weight="1.0"
+			android:text="Encount"/>
+
+		<TextView
+			android:id="@+id/tvEncount"
+			android:layout_height="wrap_content"
+			android:layout_width="0dp"
+			android:layout_weight="1.0"
+			android:text="0"/>
+
+		<TextView
+			android:id="@+id/tvTexAttackCount"
+			android:layout_height="wrap_content"
+			android:layout_width="0dp"
+			android:layout_weight="1.0"
+			android:text="AtkCount"/>
+
+		<TextView
+			android:id="@+id/tvAttackCount"
+			android:layout_height="wrap_content"
+			android:layout_width="0dp"
+			android:layout_weight="1.0"
+			android:text="0"/>
+
+		<TextView
+			android:id="@+id/tvTexNull"
+			android:layout_height="wrap_content"
+			android:layout_width="0dp"
+			android:layout_weight="1.0"
+			android:text="Null"/>
+
+		<TextView
+			android:id="@+id/tvNull"
+			android:layout_height="wrap_content"
+			android:layout_width="0dp"
+			android:layout_weight="1.0"
+			android:text="0"/>
+
+	</TableRow>
+
+	<TableRow
+		android:layout_height="wrap_content"
+		android:layout_width="match_parent">
+
+		<ProgressBar
+			android:layout_height="wrap_content"
+			style="?android:attr/progressBarStyleHorizontal"
+			android:layout_width="wrap_content"
+			android:id="@+id/pgbSlack"/>
+
+	</TableRow>
+
+	<TableRow
+		android:layout_height="wrap_content"
+		android:layout_width="wrap_content">
+
+		<makonon.fishingsimulator.FishingGraphView
+			android:id="@+id/FishingGraphView"
+			android:layout_width="wrap_content"
+			android:layout_height="300dp"/>
+
+	</TableRow>
+
+	<TableRow
+		android:layout_height="wrap_content"
+		android:layout_width="match_parent">
+
+		<ToggleButton
+			android:id="@+id/tglLever"
+			android:layout_height="wrap_content"
+			android:layout_width="0dp"
+			android:layout_weight="1.0"/>
+
+		<Button
+			android:layout_height="wrap_content"
+			android:text="Line"
+			android:layout_width="0dp"
+			android:id="@+id/btnLine"
+			android:layout_weight="1.0"
+			android:onClick="onClickbtnLine"/>
+
+	</TableRow>
+
+	<TableRow
+		android:layout_height="wrap_content"
+		android:layout_width="match_parent">
+
+		<Button
+			android:layout_height="wrap_content"
+			android:text="reel"
+			android:layout_width="0dp"
+			android:id="@+id/btnReel"
+			android:layout_weight="1.0"
+			android:onClick="onClickbtnReel"/>
+
+		<Button
+			android:layout_height="wrap_content"
+			android:text="Shake"
+			android:layout_width="0dp"
+			android:id="@+id/btnShake"
+			android:layout_weight="1.0"
+			android:onClick="onClickbtnShake"/>
+
+	</TableRow>
+
+	<TableRow
+		android:layout_height="wrap_content"
+		android:layout_width="match_parent">
+
+		<SeekBar
+			android:id="@+id/barReelSpeed"
+			android:layout_height="wrap_content"
+			android:layout_width="wrap_content"
+			android:max="39"
+			android:progress="9"/>
+
+	</TableRow>
+
+</TableLayout>
+
