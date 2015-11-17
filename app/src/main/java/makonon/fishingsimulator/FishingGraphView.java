@@ -15,13 +15,13 @@ public class FishingGraphView extends View
 	int PosBtm[] = new int[100];
 	int counter = 0;
 
-	public void setEgiPos(double EgiX, double EgiY){
-		PosX[counter] = (int)(Math.round(EgiX * 10));
-		PosY[counter] = (int)(Math.round(EgiY * 10));
+	public void setLurePos(double LureX, double LureY){
+		PosX[counter] = (int)(Math.round(LureX * 10));
+		PosY[counter] = (int)(Math.round(LureY * 10));
 		counter = counter + 1;
 	}
 
-	public void initEgiPos(){
+	public void initLurePos(){
 		for ( int i = 0; i < 36000 - 1 ; i++ ){
 			PosX[i] = 0;
 			PosY[i] = 0;

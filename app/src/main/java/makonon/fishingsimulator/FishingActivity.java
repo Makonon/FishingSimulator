@@ -51,17 +51,17 @@ public class FishingActivity extends Activity{
     double dblSimLineTension = 0; //ラインテンション[m/s]
     double dblSimRodX = 0;
     double dblSimRodY = 0;
-    double dblSimEgiVx = 0;
-    double dblSimEgiVy = 0;
-    double dblSimEgiX = 0;
-    double dblSimEgiY = 0;
+    double dblSimLureVx = 0;
+    double dblSimLureVy = 0;
+    double dblSimLureX = 0;
+    double dblSimLureY = 0;
     boolean boolCastPower = false;
-    double dblSimEgiArad = 0;
-    double dblSimEgiVrad = 0;
-    double dblSimEgiAngle = 0;
-    double dblSimEgiA = 0;
-    double dblSimEgiAx = 0;
-    double dblSimEgiAy = 0;    
+    double dblSimLureArad = 0;
+    double dblSimLureVrad = 0;
+    double dblSimLureAngle = 0;
+    double dblSimLureA = 0;
+    double dblSimLureAx = 0;
+    double dblSimLureAy = 0;    
     double dblSimReelAngle = 0;
     double dblSimReelRollSpeed = 1.0;
     int intSimReelRollCoeff = 0;
@@ -91,12 +91,12 @@ public class FishingActivity extends Activity{
 	double dblRodGuideFriction = -1.0;
 
 	/* エギパラメータ */
-	double dblEgiSize = 3.5; //号数
-    double dblEgiWeight = 20.0; //"
-	int intEgiBaseColor; //ベース（下地）色
-	int intEgiBodyColor; //ボディ（布地）色
-	double dblEgiFallSpeed = -3.2; //フォールスピード[s/m]
-	double dbllEgiBalance = 1.0; //バランス性能
+	double dblLureSize = 3.5; //号数
+    double dblLureWeight = 20.0; //"
+	int intLureBaseColor; //ベース（下地）色
+	int intLureBodyColor; //ボディ（布地）色
+	double dblLureFallSpeed = -3.2; //フォールスピード[s/m]
+	double dbllLureBalance = 1.0; //バランス性能
 
 	/* Jig Head */
 	double dblJHDencity = 11340; //kg/m3
@@ -114,8 +114,8 @@ public class FishingActivity extends Activity{
 	double dblWarmVolume = 0;
 
 	/* fishパラメータ */
-    boolean boolEgingActionThread = true;
-    boolean boolEgingViewThread = true;
+    boolean boolFishingActionThread = true;
+    boolean boolFishingViewThread = true;
 	double inch2m = 0.0254;
     double dt = 0.05;
     double g = -9.80665;
@@ -162,32 +162,35 @@ public class FishingActivity extends Activity{
 				public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
 					// TODO Auto-generated method stub
 					// トグルボタンの状態が変更された時の処理を記述
-					if(isChecked) {
+					/*if(isChecked) {
 						boolSimReelLever = true;
-					}
-					else {
+					}else {
 						boolSimReelLever = false;
-					}
+					}*/
+                    boolSimReelLever = isChecked;
 				}
 			});
 
         SeekBar barReelSpeed = (SeekBar)findViewById(R.id.barReelSpeed);
         barReelSpeed.setOnSeekBarChangeListener(new OnSeekBarChangeListener() {
-                // トラッキング開始時に呼び出されます
-                @Override
-                public void onStartTrackingTouch(SeekBar seekBar) {}
-                // トラッキング中に呼び出されます
-                @Override
-                public void onProgressChanged(SeekBar seekBar, int progress, boolean fromTouch) {
-                    dblSimReelRollSpeed = (double)(progress + 1) / 10;
-                }
-                // トラッキング終了時に呼び出されます
-                @Override
-                public void onStopTrackingTouch(SeekBar seekBar) {
-                    strtmp = String.valueOf(dblSimReelRollSpeed) + "回転／秒";
-                    Toast.makeText(getApplicationContext(),strtmp,Toast.LENGTH_SHORT).show();
-                }
-            });
+            // トラッキング開始時に呼び出されます
+            @Override
+            public void onStartTrackingTouch(SeekBar seekBar) {
+            }
+
+            // トラッキング中に呼び出されます
+            @Override
+            public void onProgressChanged(SeekBar seekBar, int progress, boolean fromTouch) {
+                dblSimReelRollSpeed = (double) (progress + 1) / 10;
+            }
+
+            // トラッキング終了時に呼び出されます
+            @Override
+            public void onStopTrackingTouch(SeekBar seekBar) {
+                strtmp = String.valueOf(dblSimReelRollSpeed) + "回転／秒";
+                Toast.makeText(getApplicationContext(), strtmp, Toast.LENGTH_SHORT).show();
+            }
+        });
     }
 
 	@Override
@@ -242,10 +245,10 @@ public class FishingActivity extends Activity{
                                 dblSimLineLength = dblRodLength / 2;
                                 dblSimSlackLength = dblSimLineLength;
                                 dbltmp = Math.toRadians(dblSimRodAngle * 3 / 4);
-                                dblSimEgiVx = dblSimCastPowerMax * 0.5 * Math.cos(dbltmp);
-                                dblSimEgiVy = dblSimCastPowerMax * 0.5 * Math.sin(dbltmp);
-                                dblSimEgiX = dblSimRodX + dblSimEgiVx * dt;
-                                dblSimEgiY = dblSimRodY + dblSimEgiVy * dt;
+                                dblSimLureVx = dblSimCastPowerMax * 0.5 * Math.cos(dbltmp);
+                                dblSimLureVy = dblSimCastPowerMax * 0.5 * Math.sin(dbltmp);
+                                dblSimLureX = dblSimRodX + dblSimLureVx * dt;
+                                dblSimLureY = dblSimRodY + dblSimLureVy * dt;
                                 strtmp = "Cast \n" + String.valueOf(Math.round(Math.toDegrees(dbltmp))) + "\n" + String.valueOf(dblSimCastPowerMax);
                                 Toast.makeText(getApplicationContext(),strtmp,Toast.LENGTH_LONG).show();
                             }else{
@@ -289,14 +292,14 @@ public class FishingActivity extends Activity{
         public boolean onTouch(View v, MotionEvent event) {
             switch (event.getAction()) {
                 case MotionEvent.ACTION_DOWN:    //タッチする
-                    //boolEgingActionThread = false;
-                    //boolEgingViewThread = false;
+                    //boolFishingActionThread = false;
+                    //boolFishingViewThread = false;
                     break;
                 case MotionEvent.ACTION_MOVE:    //タッチしたまま動かす
                     break;
                 case MotionEvent.ACTION_UP:        //指を離す
-                    //boolEgingActionThread = true;
-                    //boolEgingViewThread = true;
+                    //boolFishingActionThread = true;
+                    //boolFishingViewThread = true;
                     strtmp = String.valueOf(dblJHVolume) + "\n" + String.valueOf(dblJHArea) + "\n" + String.valueOf(dblWarmVolume) + "\n" + String.valueOf(dblWarmArea) + "\n" + String.valueOf(dblWarmWeight);
                     Toast.makeText(getApplicationContext(),strtmp,Toast.LENGTH_LONG).show();
 
@@ -322,7 +325,7 @@ public class FishingActivity extends Activity{
 
         public void close() {
             // 描画スレッドの停止
-            boolEgingActionThread = false;
+            boolFishingActionThread = false;
         }
 
         public void UpdateSimGyroV(boolean boolEnable){
@@ -342,13 +345,13 @@ public class FishingActivity extends Activity{
                 dblSimRodAngle = 0;
                 dblSimRodX = 0;
                 dblSimRodY = 0;
-                dblSimEgiAngle = 0;
+                dblSimLureAngle = 0;
             }else{
                 dblSimRodAngle = -Math.round(esa.getAnglePit());
                 dbltmp = Math.toRadians(dblSimRodAngle);
                 dblSimRodX = dblRodLength * Math.cos(dbltmp);
                 dblSimRodY = dblRodLength * Math.sin(dbltmp) + dblSimFootHeight;
-                dblSimEgiAngle = Math.atan((dblSimEgiY - dblSimRodY) / (dblSimEgiX - dblSimRodX));
+                dblSimLureAngle = Math.atan((dblSimLureY - dblSimRodY) / (dblSimLureX - dblSimRodX));
             } 
         }
 
@@ -359,7 +362,7 @@ public class FishingActivity extends Activity{
                 dblSimReelVx =  0;
                 dblSimReelVy =  0;
             }else{
-                dblSimReelAngle = dblSimEgiAngle;
+                dblSimReelAngle = dblSimLureAngle;
                 dblSimReelV = intSimReelRollCoeff * (dblReelRollLength * dblSimReelRollSpeed);
                 dbltmp = Math.toRadians(dblSimRodAngle);
                 dblSimReelVx =  -dblSimReelV * Math.cos(dbltmp);                    
@@ -373,78 +376,78 @@ public class FishingActivity extends Activity{
                 dblSimSlackLength = 0;
             }else if(boolSimReelLever){
                 dblSimLineLength = dblSimLineLength - (dblSimReelV * dt);
-                dblSimSlackLength = dblSimLineLength - Math.sqrt(Math.pow(dblSimEgiX - dblSimRodX,2) + Math.pow(dblSimEgiY - dblSimRodY,2)) - (dblSimReelV * dt);
+                dblSimSlackLength = dblSimLineLength - Math.sqrt(Math.pow(dblSimLureX - dblSimRodX,2) + Math.pow(dblSimLureY - dblSimRodY,2)) - (dblSimReelV * dt);
             }else if(boolSimLineTouch){
-                dblSimSlackLength = dblSimLineLength - Math.sqrt(Math.pow(dblSimEgiX - dblSimRodX,2) + Math.pow(dblSimEgiY - dblSimRodY,2));
-            }else if((dblSimEgiVy > 0) && (intSimStatus == 1)){
-                dblSimLineLength = dblSimLineLength + Math.abs(dblSimEgiVx * dt);
-                dblSimSlackLength = dblSimLineLength - Math.sqrt(Math.pow(dblSimEgiX - dblSimRodX,2) + Math.pow(dblSimEgiY - dblSimRodY,2));
+                dblSimSlackLength = dblSimLineLength - Math.sqrt(Math.pow(dblSimLureX - dblSimRodX,2) + Math.pow(dblSimLureY - dblSimRodY,2));
+            }else if((dblSimLureVy > 0) && (intSimStatus == 1)){
+                dblSimLineLength = dblSimLineLength + Math.abs(dblSimLureVx * dt);
+                dblSimSlackLength = dblSimLineLength - Math.sqrt(Math.pow(dblSimLureX - dblSimRodX,2) + Math.pow(dblSimLureY - dblSimRodY,2));
             }else{
-                dblSimLineLength = dblSimLineLength + Math.sqrt(Math.pow(dblSimEgiVx * dt,2) + Math.pow(dblSimEgiVy * dt,2));
-                dblSimSlackLength = dblSimLineLength - Math.sqrt(Math.pow(dblSimEgiX - dblSimRodX,2) + Math.pow(dblSimEgiY - dblSimRodY,2));
+                dblSimLineLength = dblSimLineLength + Math.sqrt(Math.pow(dblSimLureVx * dt,2) + Math.pow(dblSimLureVy * dt,2));
+                dblSimSlackLength = dblSimLineLength - Math.sqrt(Math.pow(dblSimLureX - dblSimRodX,2) + Math.pow(dblSimLureY - dblSimRodY,2));
             }
 
             if(dblSimLineLength < 0){dblSimLineLength = 0;}
             if(dblSimSlackLength < 0){dblSimSlackLength = 0;}
         }
 
-        public void UpdateSimEgiV(boolean boolEnable){
+        public void UpdateSimLureV(boolean boolEnable){
             if(!boolEnable){
-                dblSimEgiVx = 0;
-                dblSimEgiVy = 0;
-            }else if(dblSimEgiY > 0){
-				if(dblSimEgiAx < 0){
+                dblSimLureVx = 0;
+                dblSimLureVy = 0;
+            }else if(dblSimLureY > 0){
+				if(dblSimLureAx < 0){
 					dbltmp = 0;
 				}else{
 					dbltmp = dblRodGuideFriction;
 				}
-                dblSimEgiVx = dblSimEgiVx + ((dblSimEgiAx + dbltmp) * dt);
+                dblSimLureVx = dblSimLureVx + ((dblSimLureAx + dbltmp) * dt);
 
-				if(dblSimEgiAy < 0){
+				if(dblSimLureAy < 0){
 					dbltmp = 0;
 				}else{
 					dbltmp = dblRodGuideFriction;
 				}
-                dblSimEgiVy = dblSimEgiVy + ((dblSimEgiAy + dbltmp) * dt);
-            }else if(dblSimEgiY == dblSimBottomDepth[(int)Math.round(dblSimEgiX)]){
-                dblSimEgiVx = 0;
-                dblSimEgiVy = 0;
+                dblSimLureVy = dblSimLureVy + ((dblSimLureAy + dbltmp) * dt);
+            }else if(dblSimLureY == dblSimBottomDepth[(int)Math.round(dblSimLureX)]){
+                dblSimLureVx = 0;
+                dblSimLureVy = 0;
             }else{
-                dblSimEgiVx = dblSimEgiVx + (dblSimEgiAx * dt);
-                dblSimEgiVy = dblSimEgiVy + (dblSimEgiAy * dt);
+                dblSimLureVx = dblSimLureVx + (dblSimLureAx * dt);
+                dblSimLureVy = dblSimLureVy + (dblSimLureAy * dt);
 
-                //if(dblSimEgiVy < (1 / dblEgiFallSpeed)){dblSimEgiVy = (1 / dblEgiFallSpeed);}
+                //if(dblSimLureVy < (1 / dblLureFallSpeed)){dblSimLureVy = (1 / dblLureFallSpeed);}
             }            
         }
 
-        public void UpdateSimEgiVrad(boolean boolEnable){
+        public void UpdateSimLureVrad(boolean boolEnable){
             if(!boolEnable || (dblSimSlackLength > 0)){
-                dblSimEgiVrad = 0;/*
-				 }else if(dblSimEgiY > 0){
-				 dblSimEgiVrad = dblSimEgiVrad + dblSimEgiArad * dt;*/
+                dblSimLureVrad = 0;/*
+				 }else if(dblSimLureY > 0){
+				 dblSimLureVrad = dblSimLureVrad + dblSimLureArad * dt;*/
             }else{
-                //dblSimEgiVrad = (1 / dblEgiFallSpeed) * Math.cos(dblSimEgiAngle) / dblSimLineLength;
-                dblSimEgiVrad = dblSimEgiVrad + dblSimEgiArad * dt;
+                //dblSimLureVrad = (1 / dblLureFallSpeed) * Math.cos(dblSimLureAngle) / dblSimLineLength;
+                dblSimLureVrad = dblSimLureVrad + dblSimLureArad * dt;
             }            
         }
 
-        public void UpdateSimEgiPos(boolean boolEnable){
+        public void UpdateSimLurePos(boolean boolEnable){
             if(!boolEnable){
-                dblSimEgiX = dblSimRodX;
-                dblSimEgiY = dblSimRodY;
+                dblSimLureX = dblSimRodX;
+                dblSimLureY = dblSimRodY;
             }else if((dblSimSlackLength > 0) || (!boolSimReelLever && !boolSimLineTouch)){
-                dblSimEgiX = dblSimEgiX + dblSimEgiVx * dt;
-                dblSimEgiY = dblSimEgiY + dblSimEgiVy * dt;
+                dblSimLureX = dblSimLureX + dblSimLureVx * dt;
+                dblSimLureY = dblSimLureY + dblSimLureVy * dt;
             }else{
-                dbltmp = dblSimEgiAngle + (dblSimEgiVrad * dt);
-                dblSimEgiX = dblSimLineLength * Math.cos(dbltmp) + dblSimRodX + (dblSimEgiVx * dt);
-                dblSimEgiY = dblSimLineLength * Math.sin(dbltmp) + dblSimRodY + (dblSimEgiVy * dt);
+                dbltmp = dblSimLureAngle + (dblSimLureVrad * dt);
+                dblSimLureX = dblSimLineLength * Math.cos(dbltmp) + dblSimRodX + (dblSimLureVx * dt);
+                dblSimLureY = dblSimLineLength * Math.sin(dbltmp) + dblSimRodY + (dblSimLureVy * dt);
             }
 
-            if(dblSimEgiX <= dblSimRodX){dblSimEgiX = dblSimRodX;}
+            if(dblSimLureX <= dblSimRodX){dblSimLureX = dblSimRodX;}
             if(intSimStatus == 2){
-                if(dblSimEgiY > 0){dblSimEgiY = 0;}
-                if(dblSimEgiY < dblSimBottomDepth[(int)Math.round(dblSimEgiX)]){dblSimEgiY = dblSimBottomDepth[(int)Math.round(dblSimEgiX)];}
+                if(dblSimLureY > 0){dblSimLureY = 0;}
+                if(dblSimLureY < dblSimBottomDepth[(int)Math.round(dblSimLureX)]){dblSimLureY = dblSimBottomDepth[(int)Math.round(dblSimLureX)];}
             }
         }
 
@@ -456,7 +459,7 @@ public class FishingActivity extends Activity{
                 boolAttack = false;
                 boolHooking = false;
             }else{
-                intEncountBonus = intEncountBonus + (int)(Math.abs(1 * dblSimEgiAx) + Math.abs(1 * dblSimEgiAy));
+                intEncountBonus = intEncountBonus + (int)(Math.abs(1 * dblSimLureAx) + Math.abs(1 * dblSimLureAy));
                 intEncountBonus /= 2;
                 intEncount = intEncountField + intEncountBonus;
                 if(intEncount < 0){intEncount = 0;}
@@ -468,7 +471,7 @@ public class FishingActivity extends Activity{
                         boolAttack = false;
                     }else{
                         if(dblSimSlackLength <= 0){
-                            dbltmp = Math.sqrt(Math.pow(dblSimEgiVx,2) + Math.pow(dblSimEgiVy,2)) * 0.01;
+                            dbltmp = Math.sqrt(Math.pow(dblSimLureVx,2) + Math.pow(dblSimLureVy,2)) * 0.01;
                         }else{
                             dbltmp = 0;
                         }
@@ -491,7 +494,7 @@ public class FishingActivity extends Activity{
         }
 
         public void run() {
-            while (boolEgingActionThread) {
+            while (boolFishingActionThread) {
                 // ハンドルクラスによるUI描画
                 handler.post(new Runnable() {
 						@Override
@@ -502,12 +505,12 @@ public class FishingActivity extends Activity{
 									UpdateSimRodPos(true);
 									UpdateSimReelV(false);
 									UpdateLength(false);                                
-									dblSimEgiAx = 0;
-									dblSimEgiAy = 0;
-									dblSimEgiArad = 0;
-									UpdateSimEgiV(false);
-									UpdateSimEgiVrad(false);
-									UpdateSimEgiPos(false);
+									dblSimLureAx = 0;
+									dblSimLureAy = 0;
+									dblSimLureArad = 0;
+									UpdateSimLureV(false);
+									UpdateSimLureVrad(false);
+									UpdateSimLurePos(false);
 									UpdateEncount(false);
 
 									if(boolCastPower = false){
@@ -525,12 +528,12 @@ public class FishingActivity extends Activity{
 											UpdateSimRodPos(true);
 											UpdateSimReelV(false);
 											UpdateLength(true);
-											dblSimEgiAx = 0;
-											dblSimEgiAy = (getAirForce(dblSimEgiVy) / (dblJHWeight + dblWarmWeight)) + g;
-											dblSimEgiArad = dblSimEgiAy * Math.cos(dblSimEgiAngle) / dblSimLineLength;
-											UpdateSimEgiV(false);
-											UpdateSimEgiVrad(true);
-											UpdateSimEgiPos(true);
+											dblSimLureAx = 0;
+											dblSimLureAy = (getAirForce(dblSimLureVy) / (dblJHWeight + dblWarmWeight)) + g;
+											dblSimLureArad = dblSimLureAy * Math.cos(dblSimLureAngle) / dblSimLineLength;
+											UpdateSimLureV(false);
+											UpdateSimLureVrad(true);
+											UpdateSimLurePos(true);
 											UpdateEncount(false);
 
 											if(dblSimGyroV > 0){vib.vibrate(50);}
@@ -539,12 +542,12 @@ public class FishingActivity extends Activity{
 											UpdateSimRodPos(true);
 											UpdateSimReelV(false);
 											UpdateLength(true);
-											dblSimEgiAx = (getAirForce(dblSimEgiVx) / (dblJHWeight + dblWarmWeight));
-											dblSimEgiAy = (getAirForce(dblSimEgiVy) / (dblJHWeight + dblWarmWeight)) + g;
-											dblSimEgiArad = 0;
-											UpdateSimEgiV(true);
-											UpdateSimEgiVrad(false);
-											UpdateSimEgiPos(true);
+											dblSimLureAx = (getAirForce(dblSimLureVx) / (dblJHWeight + dblWarmWeight));
+											dblSimLureAy = (getAirForce(dblSimLureVy) / (dblJHWeight + dblWarmWeight)) + g;
+											dblSimLureArad = 0;
+											UpdateSimLureV(true);
+											UpdateSimLureVrad(false);
+											UpdateSimLurePos(true);
 											UpdateEncount(false);
 										}
 									}else{
@@ -552,12 +555,12 @@ public class FishingActivity extends Activity{
 										UpdateSimRodPos(true);
 										UpdateSimReelV(false);
 										UpdateLength(true);
-										dblSimEgiAx = (getAirForce(dblSimEgiVx) / (dblJHWeight + dblWarmWeight));
-										dblSimEgiAy = (getAirForce(dblSimEgiVy) / (dblJHWeight + dblWarmWeight)) + g;
-										dblSimEgiArad = 0;
-										UpdateSimEgiV(true);
-										UpdateSimEgiVrad(false);
-										UpdateSimEgiPos(true);
+										dblSimLureAx = (getAirForce(dblSimLureVx) / (dblJHWeight + dblWarmWeight));
+										dblSimLureAy = (getAirForce(dblSimLureVy) / (dblJHWeight + dblWarmWeight)) + g;
+										dblSimLureArad = 0;
+										UpdateSimLureV(true);
+										UpdateSimLureVrad(false);
+										UpdateSimLurePos(true);
 										UpdateEncount(false);
                                     }
 
@@ -566,27 +569,27 @@ public class FishingActivity extends Activity{
 										UpdateSimRodPos(true);
 										UpdateSimReelV(false);
 										UpdateLength(false);                                
-										dblSimEgiAx = 0;
-										dblSimEgiAy = 0;
-										dblSimEgiArad = 0;
-										UpdateSimEgiV(false);
-										UpdateSimEgiVrad(false);
-										UpdateSimEgiPos(false);
+										dblSimLureAx = 0;
+										dblSimLureAy = 0;
+										dblSimLureArad = 0;
+										UpdateSimLureV(false);
+										UpdateSimLureVrad(false);
+										UpdateSimLurePos(false);
 
 
 										intSimStatus = 0;
 									}
-									if(dblSimEgiY <= 0){
+									if(dblSimLureY <= 0){
 										UpdateSimGyroV(false);
 										UpdateSimRodPos(true);
 										UpdateSimReelV(false);
 										UpdateLength(true);
-										dblSimEgiAx = 0;
-										dblSimEgiAy = 0;
-										dblSimEgiArad = 0;
-										UpdateSimEgiV(false);
-										UpdateSimEgiVrad(false);
-										UpdateSimEgiPos(true);
+										dblSimLureAx = 0;
+										dblSimLureAy = 0;
+										dblSimLureArad = 0;
+										UpdateSimLureV(false);
+										UpdateSimLureVrad(false);
+										UpdateSimLurePos(true);
 										UpdateEncount(false);
 
 										intSimStatus = 2;
@@ -599,14 +602,14 @@ public class FishingActivity extends Activity{
 											UpdateSimRodPos(true);
 											UpdateSimReelV(true);
 											UpdateLength(true);
-											dbltmp = getSeaForce(dblSimEgiVx);
-											dblSimEgiAx = (dbltmp / (dblJHWeight + dblWarmWeight)) + (Math.sqrt(dblSimGyroV) * Math.cos(-dblSimEgiAngle));
-											dbltmp = (((dblJHDencity - SeaDencity) * dblJHVolume * g) + ((dblWarmDencity - SeaDencity) * dblWarmVolume * g) / 2) + getSeaForce(dblSimEgiVy);
-											dblSimEgiAy = (dbltmp / (dblJHWeight + dblWarmWeight)) + (Math.sqrt(dblSimGyroV) * Math.sin(-dblSimEgiAngle));
-											dblSimEgiArad = dblSimEgiAy * Math.cos(dblSimEgiAngle) / dblSimLineLength;
-											UpdateSimEgiV(true);
-											UpdateSimEgiVrad(true);
-											UpdateSimEgiPos(true);
+											dbltmp = getSeaForce(dblSimLureVx);
+											dblSimLureAx = (dbltmp / (dblJHWeight + dblWarmWeight)) + (Math.sqrt(dblSimGyroV) * Math.cos(-dblSimLureAngle));
+											dbltmp = (((dblJHDencity - SeaDencity) * dblJHVolume * g) + ((dblWarmDencity - SeaDencity) * dblWarmVolume * g) / 2) + getSeaForce(dblSimLureVy);
+											dblSimLureAy = (dbltmp / (dblJHWeight + dblWarmWeight)) + (Math.sqrt(dblSimGyroV) * Math.sin(-dblSimLureAngle));
+											dblSimLureArad = dblSimLureAy * Math.cos(dblSimLureAngle) / dblSimLineLength;
+											UpdateSimLureV(true);
+											UpdateSimLureVrad(true);
+											UpdateSimLurePos(true);
 											UpdateEncount(true);
 
 											if(dblSimGyroV != 0){vib.vibrate(50);}
@@ -615,14 +618,14 @@ public class FishingActivity extends Activity{
 											UpdateSimRodPos(true);
 											UpdateSimReelV(true);
 											UpdateLength(true);
-											dbltmp = getSeaForce(dblSimEgiVx);
-											dblSimEgiAx = (dbltmp / (dblJHWeight + dblWarmWeight));
-											dbltmp = (((dblJHDencity - SeaDencity) * dblJHVolume * g) + ((dblWarmDencity - SeaDencity) * dblWarmVolume * g) / 2) + getSeaForce(dblSimEgiVy);
-											dblSimEgiAy = (dbltmp / (dblJHWeight + dblWarmWeight));
-											dblSimEgiArad = 0;
-											UpdateSimEgiV(true);
-											UpdateSimEgiVrad(false);
-											UpdateSimEgiPos(true);
+											dbltmp = getSeaForce(dblSimLureVx);
+											dblSimLureAx = (dbltmp / (dblJHWeight + dblWarmWeight));
+											dbltmp = (((dblJHDencity - SeaDencity) * dblJHVolume * g) + ((dblWarmDencity - SeaDencity) * dblWarmVolume * g) / 2) + getSeaForce(dblSimLureVy);
+											dblSimLureAy = (dbltmp / (dblJHWeight + dblWarmWeight));
+											dblSimLureArad = 0;
+											UpdateSimLureV(true);
+											UpdateSimLureVrad(false);
+											UpdateSimLurePos(true);
 											UpdateEncount(true);
 										}
 									}else if(boolSimLineTouch){
@@ -631,14 +634,14 @@ public class FishingActivity extends Activity{
 											UpdateSimRodPos(true);
 											UpdateSimReelV(false);
 											UpdateLength(true);
-											dbltmp = getSeaForce(dblSimEgiVx);
-											dblSimEgiAx = (dbltmp / (dblJHWeight + dblWarmWeight)) + (Math.sqrt(dblSimGyroV) * Math.cos(-dblSimEgiAngle));
-											dbltmp = (((dblJHDencity - SeaDencity) * dblJHVolume * g) + ((dblWarmDencity - SeaDencity) * dblWarmVolume * g) / 2) + getSeaForce(dblSimEgiVy);
-											dblSimEgiAy = (dbltmp / (dblJHWeight + dblWarmWeight)) + (Math.sqrt(dblSimGyroV) * Math.sin(-dblSimEgiAngle));
-											dblSimEgiArad = dblSimEgiAy * Math.cos(dblSimEgiAngle) / dblSimLineLength;
-											UpdateSimEgiV(true);
-											UpdateSimEgiVrad(true);
-											UpdateSimEgiPos(true);
+											dbltmp = getSeaForce(dblSimLureVx);
+											dblSimLureAx = (dbltmp / (dblJHWeight + dblWarmWeight)) + (Math.sqrt(dblSimGyroV) * Math.cos(-dblSimLureAngle));
+											dbltmp = (((dblJHDencity - SeaDencity) * dblJHVolume * g) + ((dblWarmDencity - SeaDencity) * dblWarmVolume * g) / 2) + getSeaForce(dblSimLureVy);
+											dblSimLureAy = (dbltmp / (dblJHWeight + dblWarmWeight)) + (Math.sqrt(dblSimGyroV) * Math.sin(-dblSimLureAngle));
+											dblSimLureArad = dblSimLureAy * Math.cos(dblSimLureAngle) / dblSimLineLength;
+											UpdateSimLureV(true);
+											UpdateSimLureVrad(true);
+											UpdateSimLurePos(true);
 											UpdateEncount(true);
 
 											if(dblSimGyroV > 0){vib.vibrate(50);}
@@ -647,14 +650,14 @@ public class FishingActivity extends Activity{
 											UpdateSimRodPos(true);
 											UpdateSimReelV(false);
 											UpdateLength(true);
-											dbltmp = getSeaForce(dblSimEgiVx);
-											dblSimEgiAx = (dbltmp / (dblJHWeight + dblWarmWeight));
-											dbltmp = (((dblJHDencity - SeaDencity) * dblJHVolume * g) + ((dblWarmDencity - SeaDencity) * dblWarmVolume * g) / 2) + getSeaForce(dblSimEgiVy);
-											dblSimEgiAy = (dbltmp / (dblJHWeight + dblWarmWeight));
-											dblSimEgiArad = 0;
-											UpdateSimEgiV(true);
-											UpdateSimEgiVrad(false);
-											UpdateSimEgiPos(true);
+											dbltmp = getSeaForce(dblSimLureVx);
+											dblSimLureAx = (dbltmp / (dblJHWeight + dblWarmWeight));
+											dbltmp = (((dblJHDencity - SeaDencity) * dblJHVolume * g) + ((dblWarmDencity - SeaDencity) * dblWarmVolume * g) / 2) + getSeaForce(dblSimLureVy);
+											dblSimLureAy = (dbltmp / (dblJHWeight + dblWarmWeight));
+											dblSimLureArad = 0;
+											UpdateSimLureV(true);
+											UpdateSimLureVrad(false);
+											UpdateSimLurePos(true);
 											UpdateEncount(true);
 										}
 									}else{
@@ -662,14 +665,14 @@ public class FishingActivity extends Activity{
 										UpdateSimRodPos(true);
 										UpdateSimReelV(false);
 										UpdateLength(true);
-										dbltmp = getSeaForce(dblSimEgiVx);
-										dblSimEgiAx = (dbltmp / (dblJHWeight + dblWarmWeight));
-										dbltmp = (((dblJHDencity - SeaDencity) * dblJHVolume * g) + ((dblWarmDencity - SeaDencity) * dblWarmVolume * g) / 2) + getSeaForce(dblSimEgiVy);
-										dblSimEgiAy = (dbltmp / (dblJHWeight + dblWarmWeight));
-										dblSimEgiArad = 0;
-										UpdateSimEgiV(true);
-										UpdateSimEgiVrad(false);
-										UpdateSimEgiPos(true);
+										dbltmp = getSeaForce(dblSimLureVx);
+										dblSimLureAx = (dbltmp / (dblJHWeight + dblWarmWeight));
+										dbltmp = (((dblJHDencity - SeaDencity) * dblJHVolume * g) + ((dblWarmDencity - SeaDencity) * dblWarmVolume * g) / 2) + getSeaForce(dblSimLureVy);
+										dblSimLureAy = (dbltmp / (dblJHWeight + dblWarmWeight));
+										dblSimLureArad = 0;
+										UpdateSimLureV(true);
+										UpdateSimLureVrad(false);
+										UpdateSimLurePos(true);
 										UpdateEncount(true);
 									}
 
@@ -708,14 +711,14 @@ public class FishingActivity extends Activity{
         TextView tvSimLineLength;
         TextView tvSimSlackLength;
         TextView tvSimLineTension;
-        TextView tvSimEgiVx;
-        TextView tvSimEgiVy;
-        TextView tvSimEgiX;
-        TextView tvSimEgiY;
+        TextView tvSimLureVx;
+        TextView tvSimLureVy;
+        TextView tvSimLureX;
+        TextView tvSimLureY;
         TextView tvSimReelV;
-        TextView tvSimEgiAngle;
-        TextView tvSimEgiAx;
-        TextView tvSimEgiAy;
+        TextView tvSimLureAngle;
+        TextView tvSimLureAx;
+        TextView tvSimLureAy;
         TextView tvEncount;
         TextView tvAttackCount;
 
@@ -732,14 +735,14 @@ public class FishingActivity extends Activity{
             tvSimLineLength = (TextView)findViewById(R.id.tvSimLineLength); //ライン長[mm]
             tvSimSlackLength = (TextView)findViewById(R.id.tvSimSlackLength); //スラック長[mm]
             tvSimLineTension = (TextView)findViewById(R.id.tvSimLineTension); //ラインテンション[g]
-            tvSimEgiVx = (TextView)findViewById(R.id.tvSimEgiVx);
-            tvSimEgiVy = (TextView)findViewById(R.id.tvSimEgiVy);
-            tvSimEgiX = (TextView)findViewById(R.id.tvSimEgiX);
-            tvSimEgiY = (TextView)findViewById(R.id.tvSimEgiY);
+            tvSimLureVx = (TextView)findViewById(R.id.tvSimLureVx);
+            tvSimLureVy = (TextView)findViewById(R.id.tvSimLureVy);
+            tvSimLureX = (TextView)findViewById(R.id.tvSimLureX);
+            tvSimLureY = (TextView)findViewById(R.id.tvSimLureY);
             tvSimReelV = (TextView)findViewById(R.id.tvSimReelV);
-            tvSimEgiAngle = (TextView)findViewById(R.id.tvSimEgiAngle);
-            tvSimEgiAx = (TextView)findViewById(R.id.tvSimEgiAx);
-            tvSimEgiAy = (TextView)findViewById(R.id.tvSimEgiAy);
+            tvSimLureAngle = (TextView)findViewById(R.id.tvSimLureAngle);
+            tvSimLureAx = (TextView)findViewById(R.id.tvSimLureAx);
+            tvSimLureAy = (TextView)findViewById(R.id.tvSimLureAy);
             tvEncount = (TextView)findViewById(R.id.tvEncount);
             tvAttackCount = (TextView)findViewById(R.id.tvAttackCount);
 
@@ -756,11 +759,11 @@ public class FishingActivity extends Activity{
 
 	    public void close() {
 	        // 描画スレッドの停止
-	        boolEgingViewThread = false;
+	        boolFishingViewThread = false;
 	    }
 
 	    public void run() {
-	        while (boolEgingViewThread) {
+	        while (boolFishingViewThread) {
 	            // ハンドルクラスによるUI描画
 	            handler.post(new Runnable() {
 						@Override
@@ -771,14 +774,14 @@ public class FishingActivity extends Activity{
 							tvSimGyroV.setText(String.valueOf((double)Math.round(dblSimGyroV * 100) / 100));
 							tvSimLineLength.setText(String.valueOf((double)Math.round(dblSimLineLength * 100) / 100));
 							tvSimSlackLength.setText(String.valueOf((double)Math.round(dblSimSlackLength * 100) / 100));
-							tvSimEgiVx.setText(String.valueOf((double)Math.round(dblSimEgiVx * 100) / 100));
-							tvSimEgiVy.setText(String.valueOf((double)Math.round(dblSimEgiVy * 100) / 100));
-							tvSimEgiX.setText(String.valueOf((double)Math.round(dblSimEgiX * 100) / 100));
-							tvSimEgiY.setText(String.valueOf((double)Math.round(dblSimEgiY * 100) / 100));
-							tvSimReelV.setText(String.valueOf((double)Math.round(dblSimEgiVrad * 100) / 100));
-							tvSimEgiAngle.setText(String.valueOf((double)Math.round(Math.toDegrees(dblSimEgiAngle) * 100) / 100));
-							tvSimEgiAx.setText(String.valueOf((double)Math.round(dblSimEgiAx * 100) / 100));
-							tvSimEgiAy.setText(String.valueOf((double)Math.round(dblSimEgiAy * 100) / 100));
+							tvSimLureVx.setText(String.valueOf((double)Math.round(dblSimLureVx * 100) / 100));
+							tvSimLureVy.setText(String.valueOf((double)Math.round(dblSimLureVy * 100) / 100));
+							tvSimLureX.setText(String.valueOf((double)Math.round(dblSimLureX * 100) / 100));
+							tvSimLureY.setText(String.valueOf((double)Math.round(dblSimLureY * 100) / 100));
+							tvSimReelV.setText(String.valueOf((double)Math.round(dblSimLureVrad * 100) / 100));
+							tvSimLureAngle.setText(String.valueOf((double)Math.round(Math.toDegrees(dblSimLureAngle) * 100) / 100));
+							tvSimLureAx.setText(String.valueOf((double)Math.round(dblSimLureAx * 100) / 100));
+							tvSimLureAy.setText(String.valueOf((double)Math.round(dblSimLureAy * 100) / 100));
 							tvEncount.setText(String.valueOf(intEncount));
 							tvAttackCount.setText(String.valueOf(intAttackCount));
 
@@ -786,18 +789,18 @@ public class FishingActivity extends Activity{
 
 							switch(intSimStatus){
 								case 0: //スタンバイ状態の時   
-									grpos.initEgiPos();
-									grpos.setEgiPos(dblSimEgiX,dblSimEgiY);
+									grpos.initLurePos();
+									grpos.setLurePos(dblSimLureX,dblSimLureY);
 									for (inttmp = 0; inttmp < 100; inttmp++){
 										grpos.setBtmPos(inttmp,dblSimBottomDepth[inttmp]);
 									}
 									break;
 								case 1:
-									grpos.setEgiPos(dblSimEgiX,dblSimEgiY);                                
+									grpos.setLurePos(dblSimLureX,dblSimLureY);                                
 									grpos.invalidate();// グラフビュー再描画
 									break;
 								case 2:
-									grpos.setEgiPos(dblSimEgiX,dblSimEgiY);                                
+									grpos.setLurePos(dblSimLureX,dblSimLureY);                                
 									grpos.invalidate();// グラフビュー再描画
 									break;
 							}

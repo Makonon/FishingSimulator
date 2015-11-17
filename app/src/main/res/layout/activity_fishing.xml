@@ -85,14 +85,14 @@
 			android:text="0"/>
 
 		<TextView
-			android:id="@+id/tvTxtEgiVx"
+			android:id="@+id/tvTxtLureVx"
 			android:layout_height="wrap_content"
 			android:layout_width="0dp"
 			android:layout_weight="1.0"
-			android:text="EgiVx"/>
+			android:text="LureVx"/>
 
 		<TextView
-			android:id="@+id/tvSimEgiVx"
+			android:id="@+id/tvSimLureVx"
 			android:layout_height="wrap_content"
 			android:layout_width="0dp"
 			android:layout_weight="1.0"
@@ -133,14 +133,14 @@
 			android:text="0"/>
 
 		<TextView
-			android:id="@+id/tvTxtEgiVy"
+			android:id="@+id/tvTxtLureVy"
 			android:layout_height="wrap_content"
 			android:layout_width="0dp"
 			android:layout_weight="1.0"
-			android:text="EgiVy"/>
+			android:text="LureVy"/>
 
 		<TextView
-			android:id="@+id/tvSimEgiVy"
+			android:id="@+id/tvSimLureVy"
 			android:layout_height="wrap_content"
 			android:layout_width="0dp"
 			android:layout_weight="1.0"
@@ -153,28 +153,28 @@
 		android:layout_width="match_parent">
 
 		<TextView
-			android:id="@+id/tvTxtEgiX"
+			android:id="@+id/tvTxtLureX"
 			android:layout_height="wrap_content"
 			android:layout_width="0dp"
 			android:layout_weight="1.0"
-			android:text="EgiX"/>
+			android:text="LureX"/>
 
 		<TextView
-			android:id="@+id/tvSimEgiX"
+			android:id="@+id/tvSimLureX"
 			android:layout_height="wrap_content"
 			android:layout_width="0dp"
 			android:layout_weight="1.0"
 			android:text="0"/>
 
 		<TextView
-			android:id="@+id/tvTxtEgiY"
+			android:id="@+id/tvTxtLureY"
 			android:layout_height="wrap_content"
 			android:layout_width="0dp"
 			android:layout_weight="1.0"
-			android:text="EgiY"/>
+			android:text="LureY"/>
 
 		<TextView
-			android:id="@+id/tvSimEgiY"
+			android:id="@+id/tvSimLureY"
 			android:layout_height="wrap_content"
 			android:layout_width="0dp"
 			android:layout_weight="1.0"
@@ -201,42 +201,42 @@
 		android:layout_width="match_parent">
 
 		<TextView
-			android:id="@+id/tvTxtEgiAngle"
+			android:id="@+id/tvTxtLureAngle"
 			android:layout_height="wrap_content"
 			android:layout_width="0dp"
 			android:layout_weight="1.0"
-			android:text="EgiAgl"/>
+			android:text="LureAgl"/>
 
 		<TextView
-			android:id="@+id/tvSimEgiAngle"
-			android:layout_height="wrap_content"
-			android:layout_width="0dp"
-			android:layout_weight="1.0"
-			android:text="0"/>
-
-		<TextView
-			android:id="@+id/tvTxtEgiAx"
-			android:layout_height="wrap_content"
-			android:layout_width="0dp"
-			android:layout_weight="1.0"
-			android:text="EgiAx"/>
-
-		<TextView
-			android:id="@+id/tvSimEgiAx"
+			android:id="@+id/tvSimLureAngle"
 			android:layout_height="wrap_content"
 			android:layout_width="0dp"
 			android:layout_weight="1.0"
 			android:text="0"/>
 
 		<TextView
-			android:id="@+id/tvTxtEgiAy"
+			android:id="@+id/tvTxtLureAx"
 			android:layout_height="wrap_content"
 			android:layout_width="0dp"
 			android:layout_weight="1.0"
-			android:text="EgiAy"/>
+			android:text="LureAx"/>
 
 		<TextView
-			android:id="@+id/tvSimEgiAy"
+			android:id="@+id/tvSimLureAx"
+			android:layout_height="wrap_content"
+			android:layout_width="0dp"
+			android:layout_weight="1.0"
+			android:text="0"/>
+
+		<TextView
+			android:id="@+id/tvTxtLureAy"
+			android:layout_height="wrap_content"
+			android:layout_width="0dp"
+			android:layout_weight="1.0"
+			android:text="LureAy"/>
+
+		<TextView
+			android:id="@+id/tvSimLureAy"
 			android:layout_height="wrap_content"
 			android:layout_width="0dp"
 			android:layout_weight="1.0"
@@ -330,8 +330,7 @@
 			android:text="Line"
 			android:layout_width="0dp"
 			android:id="@+id/btnLine"
-			android:layout_weight="1.0"
-			android:onClick="onClickbtnLine"/>
+			android:layout_weight="1.0"/>
 
 	</TableRow>
 
@@ -344,16 +343,14 @@
 			android:text="reel"
 			android:layout_width="0dp"
 			android:id="@+id/btnReel"
-			android:layout_weight="1.0"
-			android:onClick="onClickbtnReel"/>
+			android:layout_weight="1.0"/>
 
 		<Button
 			android:layout_height="wrap_content"
 			android:text="Shake"
 			android:layout_width="0dp"
 			android:id="@+id/btnShake"
-			android:layout_weight="1.0"
-			android:onClick="onClickbtnShake"/>
+			android:layout_weight="1.0"/>
 
 	</TableRow>
 
